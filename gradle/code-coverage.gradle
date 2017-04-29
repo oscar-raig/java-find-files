@@ -1,0 +1,50 @@
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+def groupName = 'Reporting'
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+
+jacocoTestReport {
+    group = groupName
+    reports {
+        xml.enabled = true
+        csv.enabled = false
+        html.destination "${reportsDir}/html"
+        html.enabled = true
+    }
+}
+
+
+test {
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
+
+jacoco {
+    applyTo run
+}
+
+task applicationCodeCoverageReport(type:JacocoReport){
+    executionData run
+    sourceSets sourceSets.main
+}
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+    }
+}

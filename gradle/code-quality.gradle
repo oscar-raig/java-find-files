@@ -1,0 +1,40 @@
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+
+
+def groupName = 'Code quality'
+
+
+checkstyle {
+    toolVersion ="6.7"
+}
+
+
+checkstyleMain {
+    group = groupName
+}
+
+
+checkstyleTest {
+    group = groupName
+}
+
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+findbugs {
+    effort = "max"
+    reportLevel = "high"
+}
+
+findbugsTest {
+    group = groupName
+}
+findbugsMain {
+    group = groupName
+}
