@@ -25,7 +25,7 @@ public class ApplicationConsoleShould {
   @Test
   public void shouldCallFindFilesWhenArgumentsIsList() {
 
-    String[] argv = { "-list", "folder" };
+    String[] argv = { "--list", "folder" };
     applicationConsole.controller(argv);
     verify(findFilesService, times(1))
             .findFiles(anyString());
@@ -34,7 +34,7 @@ public class ApplicationConsoleShould {
   @Test
   public void shouldCallCompareFoldersWhenArgumentsIsList() {
 
-    String[] argv = { "-firstFolder", "firstFolder", "-secondFolder", "secondFolder"  };
+    String[] argv = { "--firstFolder", "firstFolder", "--secondFolder", "secondFolder"  };
     applicationConsole.controller(argv);
 
     verify(findFilesService, times(1))
@@ -44,7 +44,7 @@ public class ApplicationConsoleShould {
   @Test(expected = CommandNotFoundExcption.class)
   public void shouldThrowExceptionIfFirstFolderArgumentIsMissing() {
 
-    String[] argv = { "-dummy", "dummy", "-secondFolder", "secondFolder"  };
+    String[] argv = { "--dummy", "dummy", "--secondFolder", "secondFolder"  };
     applicationConsole.controller(argv);
 
     verify(findFilesService, times(1))
@@ -54,7 +54,7 @@ public class ApplicationConsoleShould {
   @Test(expected = CommandNotFoundExcption.class)
   public void shouldThrowExceptionIfSecondFolderArgumentIsMissing() {
 
-    String[] argv = { "-firstFolder", "dummy", "-dummy", "secondFolder"  };
+    String[] argv = { "--firstFolder", "dummy", "--dummy", "secondFolder"  };
     applicationConsole.controller(argv);
 
     verify(findFilesService, times(1))

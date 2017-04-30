@@ -12,15 +12,18 @@ public class CommandArguments {
   @Parameter
   private List<String> parameters = new ArrayList<>();
 
-  @Parameter(names = "-moveByDate", description = "Move files by date")
+  @Parameter(names = "--help", help = true)
+  private boolean help = false;
+
+  @Parameter(names = "--moveByDate", description = "Move files by date")
   private boolean moveByDate = false;
 
-  @Parameter(names = "-list", description = "one of the posible commands, list")
+  @Parameter(names = "--list", description = "one of the posible commands, list")
   private String folderForList;
 
-  @Parameter(names = "-firstFolder", description = "First folder for compare")
+  @Parameter(names = "--firstFolder", description = "First folder for compare")
   private String firstFolder;
-  @Parameter(names = "-secondFolder", description = "Second folder for compare")
+  @Parameter(names = "--secondFolder", description = "Second folder for compare")
   private String secondFolder;
 
   Command getCommand() {
@@ -35,6 +38,10 @@ public class CommandArguments {
 
     if ( moveByDate) {
       return Command.MOVE_TO_FOLDER_BY_DATE;
+    }
+
+    if ( help) {
+      return Command.HELP;
     }
 
     return Command.NO_COMMAND;

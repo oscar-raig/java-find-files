@@ -12,7 +12,7 @@ public class CommandArgumentsShould {
   @Test
   public void returnNoCommandWhenParametersAreIncorrect() {
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "-dummy", "2", "-dummy2","value_dummy2" };
+    String[] argv = { "--dummy", "2", "--dummy2","value_dummy2" };
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -26,7 +26,7 @@ public class CommandArgumentsShould {
   public void returnListOfFilesInFoldersAndTheFolder() {
 
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "-list", "myFolder" };
+    String[] argv = { "--list", "myFolder" };
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -40,7 +40,7 @@ public class CommandArgumentsShould {
   public void returnFindEqulFilesAndTheFolder() {
 
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "-firstFolder", "firstFolder", "-secondFolder", "secondFolder"  };
+    String[] argv = { "--firstFolder", "firstFolder", "--secondFolder", "secondFolder"  };
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -56,7 +56,7 @@ public class CommandArgumentsShould {
   public void returnMoveByDate() {
 
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "-moveByDate"};
+    String[] argv = { "--moveByDate"};
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -65,4 +65,16 @@ public class CommandArgumentsShould {
     assertThat(commandArguments.getCommand(), is(Command.MOVE_TO_FOLDER_BY_DATE));
   }
 
+  @Test
+  public void returnHelp() {
+
+    CommandArguments commandArguments = new CommandArguments();
+    String[] argv = { "--help"};
+    JCommander.newBuilder()
+            .addObject(commandArguments)
+            .build()
+            .parse(argv);
+
+    assertThat(commandArguments.getCommand(), is(Command.HELP));
+  }
 }
