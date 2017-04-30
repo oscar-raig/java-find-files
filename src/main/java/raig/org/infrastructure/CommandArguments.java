@@ -12,6 +12,9 @@ public class CommandArguments {
   @Parameter
   private List<String> parameters = new ArrayList<>();
 
+  @Parameter(names = "-moveByDate", description = "Move files by date")
+  private boolean moveByDate = false;
+
   @Parameter(names = "-list", description = "one of the posible commands, list")
   private String folderForList;
 
@@ -28,6 +31,10 @@ public class CommandArguments {
 
     if (firstFolder != null && secondFolder != null) {
       return Command.FIND_EQUAL_FILES;
+    }
+
+    if ( moveByDate) {
+      return Command.MOVE_TO_FOLDER_BY_DATE;
     }
 
     return Command.NO_COMMAND;

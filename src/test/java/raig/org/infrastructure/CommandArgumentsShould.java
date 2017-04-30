@@ -12,7 +12,7 @@ public class CommandArgumentsShould {
   @Test
   public void returnNoCommandWhenParametersAreIncorrect() {
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "-dummy", "2", "-dummy2", "value_dummy2" };
+    String[] argv = { "-dummy", "2", "-dummy2","value_dummy2" };
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -49,6 +49,20 @@ public class CommandArgumentsShould {
     assertThat(commandArguments.getCommand(), is(Command.FIND_EQUAL_FILES));
     assertThat(commandArguments.getFirstFolder(), is("firstFolder"));
     assertThat(commandArguments.getSecondFolder(), is("secondFolder"));
+  }
+
+
+  @Test
+  public void returnMoveByDate() {
+
+    CommandArguments commandArguments = new CommandArguments();
+    String[] argv = { "-moveByDate"};
+    JCommander.newBuilder()
+            .addObject(commandArguments)
+            .build()
+            .parse(argv);
+
+    assertThat(commandArguments.getCommand(), is(Command.MOVE_TO_FOLDER_BY_DATE));
   }
 
 }

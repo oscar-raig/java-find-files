@@ -27,7 +27,7 @@ public class ApplicationConsoleShould {
 
     String[] argv = { "-list", "folder" };
     applicationConsole.controller(argv);
-    verify(findFilesService,times(1))
+    verify(findFilesService, times(1))
             .findFiles(anyString());
   }
 
@@ -37,7 +37,7 @@ public class ApplicationConsoleShould {
     String[] argv = { "-firstFolder", "firstFolder", "-secondFolder", "secondFolder"  };
     applicationConsole.controller(argv);
 
-    verify(findFilesService,times(1))
+    verify(findFilesService, times(1))
             .compareFolders(anyString(), anyString());
   }
 
@@ -47,7 +47,7 @@ public class ApplicationConsoleShould {
     String[] argv = { "-dummy", "dummy", "-secondFolder", "secondFolder"  };
     applicationConsole.controller(argv);
 
-    verify(findFilesService,times(1))
+    verify(findFilesService, times(1))
             .compareFolders(anyString(), anyString());
   }
 
@@ -57,7 +57,7 @@ public class ApplicationConsoleShould {
     String[] argv = { "-firstFolder", "dummy", "-dummy", "secondFolder"  };
     applicationConsole.controller(argv);
 
-    verify(findFilesService,times(1))
+    verify(findFilesService, times(1))
             .compareFolders(anyString(), anyString());
   }
 }
