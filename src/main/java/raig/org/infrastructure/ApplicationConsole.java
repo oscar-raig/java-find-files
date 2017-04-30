@@ -8,18 +8,20 @@ import raig.org.services.FindFilesService;
 
 public class ApplicationConsole {
   private FindFilesService findFilesService;
-
+  private CommandArguments commandArguments;
+  private JCommander jommander;
 
   public ApplicationConsole( FindFilesService findFilesService) {
     this.findFilesService = findFilesService;
+    this.commandArguments = new CommandArguments();
+    this.jommander = new JCommander();
   }
 
   public void controller(String[] args ) {
-    CommandArguments commandArguments = new CommandArguments();
-    JCommander.newBuilder()
-            .addObject(commandArguments)
-            .build()
-            .parse(args);
+
+    jommander.addObject(commandArguments);
+    jommander.parse(args);
+    jommander.setProgramName("findFilesApplication");
 
     executeCommand(commandArguments);
   }
@@ -34,6 +36,11 @@ public class ApplicationConsole {
     if (commandArguments.getCommand().equals(Command.FIND_EQUAL_FILES)) {
       findFilesService.compareFolders(commandArguments.getFirstFolder(),
               commandArguments.getSecondFolder());
+      return;
+    }
+
+    if (commandArguments.getCommand().equals(Command.HELP)) {
+      jommander.usage();
       return;
     }
 
