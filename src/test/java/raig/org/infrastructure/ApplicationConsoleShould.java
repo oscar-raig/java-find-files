@@ -41,6 +41,16 @@ public class ApplicationConsoleShould {
             .compareFolders(anyString(), anyString());
   }
 
+  @Test
+  public void shouldCallMoveToFoldersWhenArgumentsIsMoveToFolder() {
+
+    String[] argv = { "--moveByDateSource", "sourceFolder", "--moveByDateTarget", "targetFolder"  };
+    applicationConsole.controller(argv);
+
+    verify(findFilesService, times(1))
+            .moveByDate(anyString(), anyString());
+  }
+
   @Test(expected = CommandNotFoundExcption.class)
   public void shouldThrowExceptionIfFirstFolderArgumentIsMissing() {
 

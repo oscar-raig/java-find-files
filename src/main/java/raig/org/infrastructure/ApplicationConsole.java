@@ -39,6 +39,12 @@ public class ApplicationConsole {
       return;
     }
 
+    if (commandArguments.getCommand().equals(Command.MOVE_TO_FOLDER_BY_DATE)) {
+      findFilesService.moveByDate(commandArguments.getSourceFolderForMoving(),
+              commandArguments.getTargetFolderForMoving());
+      return;
+    }
+
     if (commandArguments.getCommand().equals(Command.HELP)) {
       jommander.usage();
       return;

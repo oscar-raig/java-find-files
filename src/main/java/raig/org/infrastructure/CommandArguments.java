@@ -15,16 +15,23 @@ public class CommandArguments {
   @Parameter(names = "--help", help = true, description ="Show how to use" )
   private boolean help = false;
 
-  @Parameter(names = "--moveByDate", description = "Move files by date")
-  private boolean moveByDate = false;
+  @Parameter(names = "--moveByDateSource", description = "Move files by date Source folder")
+  private String sourceFolderForMoving;
+
+  @Parameter(names = "--moveByDateTarget", description = "Move files by date Target folder")
+  private String targetFolderForMoving;
 
   @Parameter(names = "--list", description = "one of the posible commands, list")
   private String folderForList;
 
-  @Parameter(names = "--firstFolder", description = "First folder for compare, should be use wiht --secondFolder option")
+  @Parameter(names = "--firstFolder",
+          description = "First folder for compare, should be use wiht --secondFolder option")
   private String firstFolder;
-  @Parameter(names = "--secondFolder", description = "Second folder for compare, should be use wiht --firstFolder option")
+  @Parameter(names = "--secondFolder",
+          description = "Second folder for compare, should be use wiht --firstFolder option")
   private String secondFolder;
+
+
 
   Command getCommand() {
 
@@ -36,7 +43,7 @@ public class CommandArguments {
       return Command.FIND_EQUAL_FILES;
     }
 
-    if ( moveByDate) {
+    if ( sourceFolderForMoving != null  && targetFolderForMoving != null) {
       return Command.MOVE_TO_FOLDER_BY_DATE;
     }
 
@@ -57,5 +64,13 @@ public class CommandArguments {
 
   public String getSecondFolder() {
     return secondFolder;
+  }
+
+  public String getSourceFolderForMoving() {
+    return sourceFolderForMoving;
+  }
+
+  public String getTargetFolderForMoving() {
+    return targetFolderForMoving;
   }
 }

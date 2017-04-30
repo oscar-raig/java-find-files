@@ -12,7 +12,7 @@ public class CommandArgumentsShould {
   @Test
   public void returnNoCommandWhenParametersAreIncorrect() {
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "--dummy", "2", "--dummy2","value_dummy2" };
+    String[] argv = { "--dummy", "2", "--dummy2", "value_dummy2" };
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()
@@ -56,7 +56,7 @@ public class CommandArgumentsShould {
   public void returnMoveByDate() {
 
     CommandArguments commandArguments = new CommandArguments();
-    String[] argv = { "--moveByDate"};
+    String[] argv = { "--moveByDateSource", "sourceFolder", "--moveByDateTarget", "targetFolder"};
     JCommander.newBuilder()
             .addObject(commandArguments)
             .build()

@@ -14,9 +14,10 @@ public class FindFilesApplication {
     try {
       applicationConsole.controller(args);
     } catch (CommandNotFoundExcption commandNotFoundExcption) {
-      System.out.println("Command Not Found: "+ commandNotFoundExcption);
+      System.out.println("Command Not Found: " + commandNotFoundExcption);
     } catch (Exception error) {
       System.out.println("Error: " +  error);
+      error.printStackTrace();
     }
   }
 }
