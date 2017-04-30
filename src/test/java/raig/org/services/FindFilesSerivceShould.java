@@ -12,7 +12,8 @@ public class FindFilesSerivceShould {
   @Test
   public void findFilesInFolder() throws Exception {
 
-    FindFilesService findFilesService = new FindFilesService();
+    FindFilesService findFilesService =
+            new FindFilesService(new SystemUtils());
 
     assertThat(findFilesService, not(nullValue()));
   }
