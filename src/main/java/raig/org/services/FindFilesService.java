@@ -6,7 +6,6 @@ import raig.org.domain.model.FileFound;
 import raig.org.domain.model.NoFolderFoundException;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +19,13 @@ public class FindFilesService {
 
 
   public void findFiles(String folder) {
-    List<FileFound> list = findFilesInFolder(folder);
+    List<FileFound> list = systemUtils.findFiles(folder);
     printFileList(list);
   }
 
   public void compareFolders(String firstFolder, String secondFolder) {
-    List<FileFound> listFirstFolder =  findFilesInFolder(firstFolder);
-    List<FileFound> listSecondFolder =  findFilesInFolder(secondFolder);
+    List<FileFound> listFirstFolder =  systemUtils.findFiles(firstFolder);
+    List<FileFound> listSecondFolder =  systemUtils.findFiles(secondFolder);
 
     List<FileFound> listOfequalFiles = findEqualFiles(listFirstFolder, listSecondFolder);
     printFileList(listOfequalFiles);
@@ -34,16 +33,17 @@ public class FindFilesService {
 
 
   public void moveByDate(String sourceFolder, String targetFolder) {
-    List<FileFound> list = findFilesInFolder(sourceFolder);
+
+    String folderToMove;
+    List<FileFound> list = systemUtils.findFiles(sourceFolder);
     for( FileFound file : list ) {
-      String folderToMove;
       try {
         folderToMove = getFolderToMove(file.getName());
       } catch ( NoFolderFoundException error ) {
         System.out.println(error.getMessage());
         continue;
       }
-      moveFile(file.getName(), getFolderToMove(targetFolder ,folderToMove));
+      moveFile(file.getAbsolutePath(), getFolderToMove(targetFolder ,folderToMove));
     }
   }
 
@@ -52,7 +52,7 @@ public class FindFilesService {
     if( targetFolder.substring(targetFolder.length() - 1).equals("/")) {
       endOfTheFolder = "";
     }
-    return targetFolder + endOfTheFolder +folderToMove;
+    return targetFolder + endOfTheFolder +folderToMove +  "/";
   }
 
   private List<FileFound> findEqualFiles(List<FileFound> listFirstFolder,
@@ -101,18 +101,4 @@ public class FindFilesService {
     }
   }
 
-
-  private List<FileFound> findFilesInFolder(String folder) {
-    List<FileFound> results = new ArrayList<>();
-    File[] list = new File(folder).listFiles();
-    if ( list == null || list.length == 0 ) {
-      throw new NoFilesFoundException("Files Not found in folder: " + folder);
-    }
-    for (File file : list) {
-      if (file.isFile()) {
-        results.add(new FileFound(file.getName()));
-      }
-    }
-    return results;
-  }
 }
